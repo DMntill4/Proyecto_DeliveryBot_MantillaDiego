@@ -72,6 +72,22 @@ Proyecto_DeliveryBot_MantillaDiego/
 
 ---
 
+## Base de datos — Google Sheets
+
+El sistema usa un Spreadsheet de Google Sheets como base de datos. Puedes consultarlo directamente:
+
+> 📊 **[Ver DeliveryBot_DB en Google Sheets](https://docs.google.com/spreadsheets/d/1u0Ur8gZeVgCLPy3YyscuHvKrzwtfaKfhXP0vQ7MT51w/edit?usp=sharing)**
+
+| Hoja | Descripción |
+|---|---|
+| `MENU` | Productos, precios y stock |
+| `PEDIDOS` | Historial de órdenes |
+| `USUARIOS` | Registro y puntos de fidelización |
+| `SESSIONS` | Estado del wizard por usuario |
+| `CUPONES` | Códigos de descuento generados |
+
+---
+
 ## Requisitos previos
 
 | Herramienta | Versión requerida | Estado |
