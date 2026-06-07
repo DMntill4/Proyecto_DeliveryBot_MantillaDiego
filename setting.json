@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2736,
-        1696
+        -3072,
+        1760
       ],
-      "id": "3d851057-b3f2-4f9e-804f-19a4fee99144",
+      "id": "e31e9fdf-8df9-4085-b314-278d8ec81464",
       "name": "Telegram Trigger",
       "webhookId": "6d8eee5d-24a3-4fc5-9a8f-97b8085e3d1d",
       "credentials": {
@@ -52,10 +52,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1376,
-        1712
+        -1712,
+        1776
       ],
-      "id": "803ff99f-46c4-4fd3-aa88-d8287ac5025d",
+      "id": "a85970ae-f40b-48b7-add5-e519687c5283",
       "name": "Leer Sesión Usuario",
       "alwaysOutputData": true,
       "credentials": {
@@ -239,25 +239,25 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -592,
-        1600
+        -928,
+        1664
       ],
-      "id": "db77d879-2253-45d9-9263-855f0cd38b06",
+      "id": "cdf00fa3-24cb-48e8-b749-579dac29bfed",
       "name": "Switch Navegación Principal"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=⚠️ Opción no válida  \n\nNo pude entender tu mensaje o el número que enviaste no corresponde a este menú.\n\n👉 Por favor, escribe /start para regresar al inicio.",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -160,
-        2528
+        -496,
+        2592
       ],
-      "id": "48a1b075-c967-4ffa-9753-ef86dc6a6d3b",
+      "id": "87df6554-4aec-49bd-b08e-224b24c710f2",
       "name": "Msg Error Opción Inválida",
       "webhookId": "f18d3a74-12f3-48e3-a4db-85c779eb7b53",
       "credentials": {
@@ -296,10 +296,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -176,
-        64
+        -512,
+        128
       ],
-      "id": "eb870314-e6e7-499f-9ae3-41a885210889",
+      "id": "f20c0e42-c010-4aa3-b6f1-3ed0e0c9f932",
       "name": "Leer Usuarios USUARIOS",
       "alwaysOutputData": true,
       "credentials": {
@@ -321,7 +321,7 @@
           "conditions": [
             {
               "id": "663b4abd-c167-4da5-ab37-c81ade10de5a",
-              "leftValue": "={{ ($('Leer Sesión Usuario').item?.json?.telegram_id || '').toString() }}",
+              "leftValue": "={{ ($('Leer Usuarios USUARIOS').item?.json?.telegram_id || '').toString() }}",
               "rightValue": "0",
               "operator": {
                 "type": "string",
@@ -337,10 +337,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        0,
-        64
+        -336,
+        128
       ],
-      "id": "2a3fd8e3-6a79-47ed-9f60-fe3223755dbe",
+      "id": "4f9a529c-0930-4b2d-be00-95bb04cc32dd",
       "name": "IF Usuario Nuevo"
     },
     {
@@ -415,10 +415,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        208,
-        -32
+        -128,
+        32
       ],
-      "id": "54bde78b-ca16-402c-956a-b0800aa1eea2",
+      "id": "e6d41546-621f-49fa-943b-097a7acd6e0b",
       "name": "Crear Nuevo Usuario",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -429,7 +429,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=¡Hola! Bienvenido/a a nuestra tienda virtual 🛒✨\n\nEstamos listos para ayudarte a encontrar lo más delicioso de nuestro menú.\n\n¿Qué te gustaría ordenar hoy? Selecciona una de nuestras categorías:\n\n1️⃣ 🍹 Bebidas\n2️⃣ 🍔 Comida\n3️⃣ 🍟 Aperitivos\n4️⃣ 🍰 Postres\n\n👇 ¡Escribe cualquiera de las opciones abajo!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -489,10 +489,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        640,
-        144
+        304,
+        208
       ],
-      "id": "d98d96b9-3092-44e9-9d03-a22ee45bcc9b",
+      "id": "47865d7c-d323-4ef8-9aa4-575de32b6b8e",
       "name": "Msg Bienvenida Nuevo Usuario",
       "webhookId": "83a9ca20-e86d-4b2d-abba-20d98485ada3",
       "credentials": {
@@ -593,10 +593,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        448,
-        -32
+        112,
+        32
       ],
-      "id": "d1dca6f9-78b4-4fb6-b16f-090f52942d97",
+      "id": "d6f6fbf3-6ccf-4043-85c4-cd287b400f9c",
       "name": "Crear Nueva Sesión",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -607,7 +607,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=¡Hola! Bienvenido/a a nuestra tienda virtual 🛒✨\n\nEstamos listos para ayudarte a encontrar lo más delicioso de nuestro menú.\n\n¿Qué te gustaría ordenar hoy? Selecciona una de nuestras categorías:\n\n1️⃣ 🍹 Bebidas\n2️⃣ 🍔 Comida\n3️⃣ 🍟 Aperitivos\n4️⃣ 🍰 Postres \n\n👇 ¡Escribe cualquiera de las opciones para ver los productos!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -667,10 +667,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        672,
-        -32
+        336,
+        32
       ],
-      "id": "b6d67134-4703-45ac-b2e4-dc82101c727c",
+      "id": "c74a9bbc-83f0-4bdf-a3dd-cf5178caa0fe",
       "name": "Msg Bienvenida Usuario Recurrente",
       "webhookId": "83a9ca20-e86d-4b2d-abba-20d98485ada3",
       "credentials": {
@@ -709,10 +709,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -160,
-        384
+        -496,
+        448
       ],
-      "id": "a550ff05-c7a7-4a76-9265-2f3f824659bb",
+      "id": "fd983649-ddb6-4dda-bcd8-981a23b3ccfd",
       "name": "Leer Historial Pedidos",
       "alwaysOutputData": true,
       "credentials": {
@@ -729,10 +729,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        624,
-        480
+        288,
+        544
       ],
-      "id": "550df168-3ff6-4387-8297-d95a7268e4b3",
+      "id": "ee0a0af2-7db2-491f-9bd4-686afd73fb85",
       "name": "Construir Historial Pedidos"
     },
     {
@@ -744,10 +744,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        848,
-        480
+        512,
+        544
       ],
-      "id": "680cdc76-bfaa-436f-9fc8-26779a9f2c70",
+      "id": "534cda88-aea0-4128-ae31-b335c437d5c8",
       "name": "Msg Historial Pedidos",
       "webhookId": "38941486-999e-45f5-923d-16ac49f6c251",
       "credentials": {
@@ -785,25 +785,25 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        384,
-        384
+        48,
+        448
       ],
-      "id": "277078c9-cbfa-4a35-9501-04a696df4124",
+      "id": "ee183601-71af-4bc3-8650-8aae8e3141f4",
       "name": "IF Sin Pedidos"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=📋 Historial de Pedidos\n\nAún no has realizado ningún pedido en nuestra tienda virtual.\n\nRecuerda que puedes ganar puntos de lealtad en cada compra que hagas y luego redimirlos como cupones!\n\nEn cuanto hagas tu primera compra, aquí podrás ver el resumen detallado de tus platos favoritos, cantidades y estados de envío. ¡Te esperamos! 🛒✨",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        624,
-        320
+        288,
+        384
       ],
-      "id": "7f199543-8e2f-47ea-b021-6bc260ef83d4",
+      "id": "8944e10a-ab30-4891-8dad-26b05a0f9d6c",
       "name": "Msg Sin Pedidos Aún",
       "webhookId": "c728ac8c-fc38-4c9b-a71a-0a81c72cbab6",
       "credentials": {
@@ -820,10 +820,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -176,
-        2096
+        -512,
+        2160
       ],
-      "id": "3d342ab3-13a7-4988-bf35-e51928fed62c",
+      "id": "2ae94d85-0269-4bb0-a958-8771d0be66d3",
       "name": "Resolver Categoría"
     },
     {
@@ -854,10 +854,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -16,
-        2096
+        -352,
+        2160
       ],
-      "id": "ceecf159-ad62-4ace-ab41-07a82ffe41ed",
+      "id": "3542698e-2942-4532-9bdc-4b1b14aff373",
       "name": "IF Error Categoría"
     },
     {
@@ -869,10 +869,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        224,
-        2048
+        -112,
+        2112
       ],
-      "id": "dd54e360-c325-4fb9-a57f-f913b6f6ff45",
+      "id": "36a1000b-6f67-417b-932b-d679dedbfd05",
       "name": "Msg Error Categoría",
       "webhookId": "0ba70cd4-2f88-4986-8336-8e7cea1a88fb",
       "credentials": {
@@ -911,10 +911,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        224,
-        2208
+        -112,
+        2272
       ],
-      "id": "3696f2f7-72e7-4402-b406-622ea3de59b6",
+      "id": "f3c9cac6-ed3e-4c6f-87eb-1fec4a7660d0",
       "name": "Leer Menú por Categoría",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -930,10 +930,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        416,
-        2208
+        80,
+        2272
       ],
-      "id": "a33718ca-5fa3-4812-bba0-33c9b60ca44e",
+      "id": "53b16195-cfe8-4d84-a7ac-f4cdafdb6ae2",
       "name": "Construir Menú Categoría"
     },
     {
@@ -945,10 +945,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        816,
-        2208
+        480,
+        2272
       ],
-      "id": "1cb3d80b-1b14-4018-bc66-ee7a2115898e",
+      "id": "e7c7cc50-ce88-41ef-a57b-2ed84e888f93",
       "name": "Msg Menú Categoría",
       "webhookId": "ef3a426f-91db-40ba-a659-3c29b44b6af9",
       "credentials": {
@@ -963,10 +963,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -400,
-        2528
+        -736,
+        2592
       ],
-      "id": "82cf20d4-4f34-4289-8d20-954cfd667cf6",
+      "id": "3b2932df-2e1e-4b8a-8b44-02ff342da979",
       "name": "Limit Opción Inválida"
     },
     {
@@ -974,10 +974,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -320,
-        384
+        -656,
+        448
       ],
-      "id": "135040ea-5425-4f16-9760-9d092dd51268",
+      "id": "d1a8f01b-d884-45d3-95c7-9b4fb43bc790",
       "name": "Limit Sin Pedidos"
     },
     {
@@ -985,10 +985,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -368,
-        64
+        -704,
+        128
       ],
-      "id": "402eaec3-106d-4cc5-a93d-8e3ab2493a3d",
+      "id": "042005af-1833-4006-aa33-145d3bb9d95b",
       "name": "Limit Usuario Nuevo"
     },
     {
@@ -1008,10 +1008,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -368,
-        2096
+        -704,
+        2160
       ],
-      "id": "3b93adda-3cab-49a0-9e9c-e854d645829e",
+      "id": "b11efbcc-5fc1-4c1b-8d11-66ab8da2586c",
       "name": "Normalizar Categoría"
     },
     {
@@ -1021,10 +1021,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -96,
-        672
+        -432,
+        736
       ],
-      "id": "78e709dc-bcef-425c-9ee1-cc63a8f5bbe5",
+      "id": "ba34c504-5b25-4e78-931e-84d7e7660dcf",
       "name": "Procesar Selección Producto"
     },
     {
@@ -1106,25 +1106,25 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        64,
-        656
+        -272,
+        720
       ],
-      "id": "1edbe19c-31bf-4a68-94a9-36353acf288b",
+      "id": "f832dd7f-890a-48ea-8c89-1882a5c4aafa",
       "name": "Switch Acción Producto"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $json.mensaje }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        336,
-        640
+        0,
+        704
       ],
-      "id": "34b1a80d-fb32-4237-896f-7dd16d8208d7",
+      "id": "fe45937f-1713-4afe-b58b-d0380664053c",
       "name": "Msg Error Selección Producto",
       "webhookId": "47d14d9d-e778-4e8f-9a0d-def57affc88b",
       "credentials": {
@@ -1239,10 +1239,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        528,
-        768
+        192,
+        832
       ],
-      "id": "a42055bc-189b-4b86-877e-99004e85d329",
+      "id": "ca6b7c4c-61a5-4695-b4f5-0da725921948",
       "name": "Actualizar Sesión Inicio",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1253,17 +1253,17 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('Procesar Selección Producto').item.json.mensaje }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        928,
-        992
+        592,
+        1056
       ],
-      "id": "228eda11-29af-4105-9fa3-6a65091ee35b",
+      "id": "b8e04a82-1e53-4e06-9627-1c6791b9bcb6",
       "name": "Msg Confirmación Producto",
       "webhookId": "12ce12ac-8b6e-48ae-9583-27e3a02dcb69",
       "credentials": {
@@ -1301,26 +1301,26 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1040,
-        1712
+        -1376,
+        1776
       ],
-      "id": "5b6af070-75b4-4d24-869b-45367d7d875d",
+      "id": "69b23b1b-b126-4a3d-894c-7442aa2db699",
       "name": "IF Sesión Activa",
       "alwaysOutputData": false
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=👋 ¡Hola! No tienes una sesión activa. \n\nPor favor escribe /start para comenzar.",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -768,
-        1984
+        -1104,
+        2048
       ],
-      "id": "f62a2506-f65f-47a5-a8b7-84bbf536a8c3",
+      "id": "4bdb7f38-08fd-49ea-9400-c1321f5c5484",
       "name": "Msg Sin Sesión Activa",
       "webhookId": "fec422af-581c-4405-b8a6-1dc0778da678",
       "credentials": {
@@ -1335,23 +1335,23 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -912,
-        1984
+        -1248,
+        2048
       ],
-      "id": "5edc4f2f-6e92-49a0-a52c-d95eff1466db",
+      "id": "cebe474e-c18f-48b5-b215-0e659f13e006",
       "name": "Limit Sin Sesión"
     },
     {
       "parameters": {
-        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst telegramId = String(trigger.message?.from?.id ?? \"\");\nconst textoUsuario = trigger.message?.text?.trim() ?? \"\";\n\nconst sesiones = $input.all();\n\nconst session = sesiones.find(s => String(s.json.telegram_id ?? \"\").trim() === telegramId)?.json;\n\nconst estaRegistrado = !!session;\nconst esStart = textoUsuario === '/start';\nconst puedeAcceder = estaRegistrado || esStart;\n\nreturn [{ \n    json: { \n        puedeAcceder, \n        textoUsuario, \n        telegramId, \n        chatId: String(trigger.message?.chat?.id ?? \"\"),\n        pantalla_actual: session ? session.pantalla_actual : 'inicio'\n    } \n}];"
+        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst telegramId = String(trigger.message?.from?.id ?? \"\");\nconst textoUsuario = trigger.message?.text?.trim() ?? \"\";\n\nconst sesiones = $input.all();\n\nconst session = sesiones.find(s => String(s.json.telegram_id ?? \"\").trim() === telegramId)?.json;\n\nconst estaRegistrado = !!session;\nconst esStart = textoUsuario === '/start';\nconst puedeAcceder = estaRegistrado || esStart;\n\nreturn [{ \n    json: { \n        puedeAcceder, \n        textoUsuario, \n        telegramId, \n        chatId: String(trigger.message?.chat?.id ?? trigger.callback_query?.message?.chat?.id ?? \"\"),\n        pantalla_actual: session ? session.pantalla_actual : 'inicio'\n    } \n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1200,
-        1712
+        -1536,
+        1776
       ],
-      "id": "d3aa916b-8445-45e7-b099-179f1f5c009b",
+      "id": "fe352b77-66cd-49bd-9c94-12b2fd0ff6c0",
       "name": "Verificar Sesión Activa",
       "executeOnce": false
     },
@@ -1449,10 +1449,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        608,
-        2208
+        272,
+        2272
       ],
-      "id": "5d33806c-223b-453a-b4c7-88f4928e30fa",
+      "id": "d6ee2091-38a1-4e1a-b8f9-7bd0966e2bb1",
       "name": "Actualizar Sesión Categoría",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1466,10 +1466,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        208,
-        144
+        -128,
+        208
       ],
-      "id": "7d40d4b2-5fd2-4d45-ab27-a863b94accde",
+      "id": "7e1ae2f0-62e8-42c3-abe4-7adc8a6b8528",
       "name": "Limit Bienvenida"
     },
     {
@@ -1577,11 +1577,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        416,
-        144
+        80,
+        208
       ],
-      "id": "d6d3dfb6-d0f4-4343-8766-ddace04c2613",
+      "id": "ac7b7912-20a4-4c88-9580-077ccb1de183",
       "name": "Actualizar Sesión Start",
+      "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "c62ihsHEYu6VTYhM",
@@ -1591,7 +1592,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "=¡Hola! Bienvenido/a a nuestra tienda virtual 🛒✨\n\nEstamos listos para ayudarte a encontrar lo más delicioso de nuestro menú.\n\n¿Qué te gustaría ordenar hoy? Selecciona una de nuestras categorías:\n\n1️⃣ 🍹 Bebidas\n2️⃣ 🍔 Comida\n3️⃣ 🍟 Aperitivos\n4️⃣ 🍰 Postres\n\n👇 ¡Escribe cualquiera de las opciones para ver los productos!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -1651,10 +1652,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        704,
-        816
+        368,
+        880
       ],
-      "id": "f4a7f728-387d-4213-9760-edb7580eabb1",
+      "id": "ffc42920-f349-4e61-aa59-649029b70515",
       "name": "Msg Bienvenida Start Existente",
       "webhookId": "83a9ca20-e86d-4b2d-abba-20d98485ada3",
       "credentials": {
@@ -1769,10 +1770,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        720,
-        992
+        384,
+        1056
       ],
-      "id": "e5fc7363-c1ab-4256-8d6a-c66abfc458c1",
+      "id": "8f3b1d87-364e-4710-b364-4601fddf66d2",
       "name": "Actualizar Sesión Producto",
       "alwaysOutputData": true,
       "credentials": {
@@ -1789,10 +1790,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        16,
-        1008
+        -320,
+        1072
       ],
-      "id": "9ba6abbe-4b0a-4631-bc36-a85c7a1e40a2",
+      "id": "70e2a215-f7ca-4ba7-970a-f57919be2157",
       "name": "Agregar Producto al Carrito"
     },
     {
@@ -1823,25 +1824,25 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        192,
-        1008
+        -144,
+        1072
       ],
-      "id": "6665c9da-8db1-4902-a1c5-65c2f59fc5e1",
+      "id": "9c936787-3d53-4e44-95d7-b8baa8a3639a",
       "name": "IF Error Agregar Carrito"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('IF Error Agregar Carrito').item.json.mensaje }} ",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        544,
-        1088
+        208,
+        1152
       ],
-      "id": "05e80c30-a9f8-47c9-af5b-03da7bf16cee",
+      "id": "d17738ab-4dd1-4778-956b-0ec435c79a2f",
       "name": "Msg Error Agregar Carrito",
       "webhookId": "b4a64ffb-18d5-4ce0-a919-688ad7d9b445",
       "credentials": {
@@ -1957,10 +1958,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        352,
-        1200
+        16,
+        1264
       ],
-      "id": "e374ff22-122c-475f-aa38-dc46c31d5a20",
+      "id": "1a6a0d84-53d2-4384-a7b6-3596d23fc912",
       "name": "Guardar Carrito en Sesión",
       "alwaysOutputData": true,
       "credentials": {
@@ -1972,17 +1973,17 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('Agregar Producto al Carrito').item.json.mensaje }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        544,
-        1264
+        208,
+        1328
       ],
-      "id": "32541c03-d61f-45e9-a5be-91aaf40161ca",
+      "id": "99df1770-0e39-433b-ad0d-81e723fab2ea",
       "name": "Msg Producto Agregado Carrito",
       "webhookId": "12ce12ac-8b6e-48ae-9583-27e3a02dcb69",
       "credentials": {
@@ -2013,10 +2014,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -272,
-        672
+        -608,
+        736
       ],
-      "id": "f3b0dfff-899a-416e-ac65-9a7d1aa01955",
+      "id": "d79073f3-0c1d-44e9-8238-6f0e435c77f9",
       "name": "Leer Menú Completo Producto",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -2046,10 +2047,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -304,
-        1008
+        -640,
+        1072
       ],
-      "id": "787105a3-a5af-4f17-9437-047ab1bca490",
+      "id": "c1a127ee-7733-4bfa-a547-25d47a456f3e",
       "name": "Leer Menú Completo Carrito",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -2065,25 +2066,25 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        272,
-        1440
+        -64,
+        1504
       ],
-      "id": "a70bbbbf-5d8a-4b11-a481-89ffdf202d08",
+      "id": "747efa42-6ba0-4f3b-9cc7-8168838723ae",
       "name": "Construir Vista Carrito"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('Construir Vista Carrito').item.json.mensaje }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        464,
-        1440
+        128,
+        1504
       ],
-      "id": "a9f3b945-dc08-42b7-8c36-ab5d05f44726",
+      "id": "9f99a8ca-a752-4542-9b34-f0d2e9c10534",
       "name": "Msg Vista Carrito",
       "webhookId": "12ce12ac-8b6e-48ae-9583-27e3a02dcb69",
       "credentials": {
@@ -2122,10 +2123,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -272,
-        1728
+        -608,
+        1792
       ],
-      "id": "f8f13d11-c383-45a0-a749-94ac67024a86",
+      "id": "4bb5aa16-4f45-4e16-b99f-29eb3dc073ed",
       "name": "Leer Sesión para Carrito",
       "alwaysOutputData": true,
       "credentials": {
@@ -2159,10 +2160,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        48,
-        1728
+        -288,
+        1792
       ],
-      "id": "023ce622-1f31-4754-b670-6b64d0da0e63",
+      "id": "508396d1-c7fc-4c75-805a-5c1fbba55837",
       "name": "Leer Menú Completo Stock",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -2178,10 +2179,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        896,
-        1728
+        560,
+        1792
       ],
-      "id": "3a79b464-e766-417f-9b59-ba82d4248505",
+      "id": "88eb37b7-0079-41d4-b651-450efda03d57",
       "name": "Validar Stock Carrito"
     },
     {
@@ -2212,25 +2213,25 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1120,
-        1728
+        784,
+        1792
       ],
-      "id": "374ff54a-6784-467f-8c17-8075fcbe6801",
+      "id": "b1ef2153-32f6-4ef2-9798-3fefe38f9161",
       "name": "IF Stock Suficiente"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('Validar Stock Carrito').item.json.mensajeError }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1376,
-        1840
+        1040,
+        1904
       ],
-      "id": "56de4b2b-95fb-4e14-a6fc-271dab4e5a6f",
+      "id": "c1cdcf26-4db7-47c7-881f-3c997750218d",
       "name": "Msg Error Stock Carrito",
       "webhookId": "12ce12ac-8b6e-48ae-9583-27e3a02dcb69",
       "credentials": {
@@ -2247,10 +2248,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1376,
-        1632
+        1040,
+        1696
       ],
-      "id": "f1397662-26ed-452e-af57-d2b8333c1b74",
+      "id": "112adace-2f49-47a8-a366-045ed0fc1fdc",
       "name": "Procesar Confirmación Pedido"
     },
     {
@@ -2260,10 +2261,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2816,
-        1632
+        2480,
+        1696
       ],
-      "id": "5aa22ada-e307-4cd0-9f99-7448afc6ac90",
+      "id": "6d0f0a48-558b-43a5-be3d-4038ec0599e5",
       "name": "Distribuir Items Pedido",
       "alwaysOutputData": false
     },
@@ -2369,10 +2370,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3024,
-        1632
+        2688,
+        1696
       ],
-      "id": "51b35bab-45f4-403c-8c3e-9b29ffc028ae",
+      "id": "616cf65b-9887-444c-826d-fa00dedb4d0e",
       "name": "Descontar Stock Vendido",
       "alwaysOutputData": false,
       "credentials": {
@@ -2488,10 +2489,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3216,
-        1632
+        2880,
+        1696
       ],
-      "id": "5bfe5cf2-8ccf-46e3-827d-9beafbb3ccba",
+      "id": "0ab562fc-dd20-427c-a8fc-40f7505da353",
       "name": "Limpiar Sesión Tras Pedido",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -2502,17 +2503,17 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
         "text": "={{ $('Distribuir Items Pedido').item.json.mensajeUsuario }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3616,
-        1632
+        3280,
+        1696
       ],
-      "id": "16280c56-ff38-4424-a20f-e467a364f7e3",
+      "id": "1f0c03ee-9c8d-44e6-b2a8-190c77985585",
       "name": "Msg Pedido Confirmado Usuario",
       "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
       "credentials": {
@@ -2531,10 +2532,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3808,
-        1632
+        3472,
+        1696
       ],
-      "id": "e4d3101c-1681-4ac4-bbb4-0ba4f3fe1446",
+      "id": "733b64b9-d514-4488-9697-a226ae94443f",
       "name": "Msg Nuevo Pedido Cocina",
       "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
       "credentials": {
@@ -2660,10 +2661,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1568,
-        1632
+        1232,
+        1696
       ],
-      "id": "b55fc652-8a5d-4f9a-a359-b881228fb717",
+      "id": "a3550539-7d76-4a75-881e-1deee5beff64",
       "name": "Guardar Pedido en PEDIDOS",
       "alwaysOutputData": false,
       "credentials": {
@@ -2680,10 +2681,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2288,
-        1184
+        -2624,
+        1248
       ],
-      "id": "47841439-2e0c-4aab-8bc2-9f53cb37f0a9",
+      "id": "1261efba-0890-455e-b94e-47e3cf73ea2f",
       "name": "Procesar Comando Estado"
     },
     {
@@ -2714,10 +2715,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -2112,
-        1184
+        -2448,
+        1248
       ],
-      "id": "5735c82c-f122-432d-87f7-166aa72587d9",
+      "id": "347f8f2d-b656-4b97-b16c-d8bccd5ab273",
       "name": "IF Es Admin",
       "retryOnFail": false,
       "executeOnce": true
@@ -2731,10 +2732,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1936,
-        1280
+        -2272,
+        1344
       ],
-      "id": "cbe0293d-7df0-4b09-aa04-4c2277392a66",
+      "id": "b0501778-bba9-4187-8a1c-4aa3277379cb",
       "name": "Msg Acceso Denegado Admin",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -2747,16 +2748,16 @@
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
-        "text": "={{ $json.mensajeError }}",
+        "text": "={{ $json.mensajeEstadoInvalido }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1728,
-        1120
+        -2064,
+        1184
       ],
-      "id": "9c8da875-71df-429c-ad13-debaa8bb010e",
+      "id": "da685a9b-a093-48c0-b118-c710f976795f",
       "name": "Msg Error Formato Comando",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -2794,10 +2795,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1936,
-        1040
+        -2272,
+        1104
       ],
-      "id": "279c3711-7608-4740-a1bd-9dbe3953d92e",
+      "id": "c735c22c-8447-4fc7-9c9e-cbb4198bb078",
       "name": "IF Comando Válido"
     },
     {
@@ -2828,10 +2829,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1728,
-        944
+        -2064,
+        1008
       ],
-      "id": "154f5bb5-aab2-4b5e-91b5-295a4d4a9b26",
+      "id": "2d456dca-cd6d-43f7-bc91-c61592ec3c8d",
       "name": "IF Estado Válido"
     },
     {
@@ -2843,10 +2844,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1472,
-        1008
+        -1808,
+        1072
       ],
-      "id": "e20f3a7e-21e5-44b4-a71a-1d5d29b15483",
+      "id": "ba1facfc-d328-4893-a272-00426a3a28f8",
       "name": "Msg Estado Inválido",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -2885,10 +2886,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1472,
-        832
+        -1808,
+        896
       ],
-      "id": "b31b1c95-b6a8-4b94-b363-afb5553f6d5c",
+      "id": "bac604d5-3537-47f1-bcf8-2d1d09da126b",
       "name": "Leer Pedido por ID",
       "alwaysOutputData": true,
       "credentials": {
@@ -2910,11 +2911,12 @@
           "conditions": [
             {
               "id": "66164562-92fc-49ae-8dff-5210b6c592e1",
-              "leftValue": "={{ $input.all().length }}",
-              "rightValue": 0,
+              "leftValue": "={{ $input.first().json.id_pedido }}",
+              "rightValue": 1,
               "operator": {
-                "type": "number",
-                "operation": "notEquals"
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
               }
             }
           ],
@@ -2925,11 +2927,12 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1312,
-        832
+        -1648,
+        896
       ],
-      "id": "75a64428-0ccd-4a6e-ba63-25829b9fc952",
-      "name": "IF Pedido Encontrado"
+      "id": "b85c4d49-6388-403c-86af-065c72e8084d",
+      "name": "IF Pedido Encontrado",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -2940,10 +2943,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1104,
-        896
+        -1440,
+        960
       ],
-      "id": "d0a5e11f-ecf1-4c2f-837c-9ef32b5fa9a9",
+      "id": "e5aa2ec9-02a4-4cc0-a4c8-4eb0c70a6ddb",
       "name": "Msg Pedido No Encontrado",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -3064,12 +3067,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1104,
-        736
+        -1440,
+        800
       ],
-      "id": "acbdd453-21d9-4a98-8466-a4b67f19d62a",
+      "id": "4278c3a5-f04a-4160-b624-62c373962107",
       "name": "Actualizar Estado Pedido",
-      "alwaysOutputData": true,
+      "alwaysOutputData": false,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "c62ihsHEYu6VTYhM",
@@ -3086,10 +3089,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -896,
-        736
+        -1232,
+        800
       ],
-      "id": "eb93ee6a-0ce2-4554-a08f-86c24c5658b3",
+      "id": "c28b6379-5606-4e69-9228-0df89ce6c7ea",
       "name": "Msg Actualización Estado Cliente",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -3108,10 +3111,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -704,
-        736
+        -1040,
+        800
       ],
-      "id": "aef1bf3e-9d94-474a-bca1-58822499c417",
+      "id": "5c879100-a3d5-499d-bdeb-01e38bf6348e",
       "name": "Msg Confirmación Admin Estado",
       "webhookId": "b3276ddf-f671-4895-92e1-e565e060ef83",
       "credentials": {
@@ -3134,10 +3137,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2496,
-        2048
+        -2832,
+        2112
       ],
-      "id": "6e10d1b2-c376-4f93-b71d-b097544bce68",
+      "id": "fab23aa3-a483-4672-a014-f8ca3254498e",
       "name": "Schedule Trigger"
     },
     {
@@ -3169,10 +3172,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -2288,
-        2048
+        -2624,
+        2112
       ],
-      "id": "ca97dadb-8f35-44af-8c9a-9c920aa9f116",
+      "id": "25b14b3b-7d90-4b34-834e-0c44fd3ef7c1",
       "name": "Leer Pedidos del Día",
       "alwaysOutputData": true,
       "credentials": {
@@ -3203,10 +3206,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -2080,
-        2048
+        -2416,
+        2112
       ],
-      "id": "0e17cdaf-1fbd-4307-96cb-038c1f1c613f",
+      "id": "d7f3764a-769d-4ed3-b294-a4d3f915604a",
       "name": "Leer Menú Reporte Diario",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -3222,10 +3225,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1872,
-        2048
+        -2208,
+        2112
       ],
-      "id": "3ae6065f-5378-447d-89fe-62ab9c7403f5",
+      "id": "6a0dc309-107f-4ef5-ba2a-5d732b3afca9",
       "name": "Generar Reporte Diario"
     },
     {
@@ -3237,10 +3240,10 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1664,
-        2048
+        -2000,
+        2112
       ],
-      "id": "4644a9fd-6351-4c22-ad3d-b9e6b3ba2ca9",
+      "id": "47c75d0d-c6dd-496f-9263-db31ebe5a038",
       "name": "Msg Reporte Diario",
       "webhookId": "890961a6-7c2c-4b7f-b899-2a9a197f5eb2",
       "credentials": {
@@ -3262,7 +3265,7 @@
           "conditions": [
             {
               "id": "626d0698-e474-43e0-9d62-201f17fb114d",
-              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "leftValue": "={{ ($('Telegram Trigger').item.json.message?.text || '') }}",
               "rightValue": "/estado",
               "operator": {
                 "type": "string",
@@ -3277,10 +3280,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -2528,
-        1696
+        -2864,
+        1760
       ],
-      "id": "03ba5dca-fe29-4bed-a617-66743bf8aa5b",
+      "id": "7ae5e1cb-d674-4a83-b7a6-14e914e40813",
       "name": "IF Mensaje o Start"
     },
     {
@@ -3288,10 +3291,10 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        3408,
-        1632
+        3072,
+        1696
       ],
-      "id": "5a4bc244-6de8-4532-9e47-656823750a6a",
+      "id": "b535a75b-f56e-4825-9e8a-e13a1a9c836b",
       "name": "Limit Envío Pedido"
     },
     {
@@ -3378,10 +3381,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1776,
-        1632
+        1440,
+        1696
       ],
-      "id": "2bd0136f-60c7-4800-867e-2188a7fdd644",
+      "id": "75ae372a-0467-4065-b6f9-63cdedabe2f1",
       "name": "Actualizar Puntos Usuario",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -3418,10 +3421,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1984,
-        1632
+        1648,
+        1696
       ],
-      "id": "15660f07-e830-401d-bae3-9a4f0f746eb5",
+      "id": "3a825db7-596f-45e2-a0e7-983dce86a417",
       "name": "IF Tiene Cupón Activo"
     },
     {
@@ -3537,10 +3540,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2176,
-        1504
+        1840,
+        1568
       ],
-      "id": "6cf3b363-ea5e-4cbc-8872-ee20973a55a5",
+      "id": "fe386d07-a2da-4135-93d6-81af2e552912",
       "name": "Marcar Cupón Usado",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -3577,10 +3580,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2336,
-        1728
+        2000,
+        1792
       ],
-      "id": "e05141bb-cd72-4932-9f7a-ced6b0cc9ac4",
+      "id": "79041c0a-3633-4872-b4e9-b06739022921",
       "name": "IF Genera Cupón Nuevo"
     },
     {
@@ -3686,10 +3689,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2528,
-        1504
+        2192,
+        1568
       ],
-      "id": "3b3841ca-a42e-4b9f-917c-658887278cbc",
+      "id": "2471015d-1831-4cde-a6f2-cb2cb44faf9a",
       "name": "Guardar Cupón Nuevo",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -3719,10 +3722,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        336,
-        1728
+        0,
+        1792
       ],
-      "id": "4387c5e2-9ff2-4ed5-8a03-f53339685566",
+      "id": "1769d8fd-9ec3-4158-b98a-17866e8eb504",
       "name": "Leer Usuarios para Pedido",
       "alwaysOutputData": true,
       "credentials": {
@@ -3753,10 +3756,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        672,
-        1728
+        336,
+        1792
       ],
-      "id": "4dbf09ee-94b4-4702-a89a-5c17f7e4d807",
+      "id": "f1ea66bd-2e49-4726-8d32-ae3676d6883d",
       "name": "Leer Cupones para Pedido",
       "alwaysOutputData": true,
       "credentials": {
@@ -3773,10 +3776,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -96,
-        1888
+        -432,
+        1952
       ],
-      "id": "a3bb4ad9-33bc-4009-9275-ef0afaaca131",
+      "id": "6eed1f05-6f67-43d1-a1ea-0ef0216af9c4",
       "name": "Wait Sesión 1",
       "webhookId": "bbe35bfb-9b4b-4b9c-9019-d51992183589"
     },
@@ -3787,10 +3790,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        192,
-        1888
+        -144,
+        1952
       ],
-      "id": "40b1bb6b-8a48-492e-a987-666a6947858a",
+      "id": "dbcf013a-c9e7-47e9-a1e2-65e5c07ab5fa",
       "name": "Wait Sesión 2",
       "webhookId": "bbe35bfb-9b4b-4b9c-9019-d51992183589"
     },
@@ -3801,10 +3804,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        496,
-        1888
+        160,
+        1952
       ],
-      "id": "00e108ea-419c-462d-aa8e-44ec8f793fb2",
+      "id": "129a32f6-43d0-4f0a-af2a-adea0fc59214",
       "name": "Wait Sesión 3",
       "webhookId": "bbe35bfb-9b4b-4b9c-9019-d51992183589"
     },
@@ -3829,10 +3832,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -272,
-        1440
+        -608,
+        1504
       ],
-      "id": "2eead9ab-28a5-4686-90e2-aab15d07fc0e",
+      "id": "e1c4a0fc-b638-46b1-ac02-6fcbb80b33ac",
       "name": "Leer Usuarios para Carrito",
       "alwaysOutputData": true,
       "credentials": {
@@ -3863,10 +3866,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -96,
-        1440
+        -432,
+        1504
       ],
-      "id": "f4603858-c16a-4ae6-af61-6522df176dbc",
+      "id": "5ed579bd-b959-40ec-ae45-7d0f770aef15",
       "name": "Leer Cupones para Carrito",
       "alwaysOutputData": true,
       "credentials": {
@@ -3897,10 +3900,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        32,
-        384
+        -304,
+        448
       ],
-      "id": "b41d3a62-6284-4194-9b51-98c6e61d8008",
+      "id": "78e47d53-493a-471d-b2d7-be062ef56266",
       "name": "Leer Todos Usuarios",
       "alwaysOutputData": true,
       "credentials": {
@@ -3931,10 +3934,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        208,
-        384
+        -128,
+        448
       ],
-      "id": "65375fd1-f54c-405a-b4bb-3a3eae79fc52",
+      "id": "a56f6371-87e5-4bbd-bdae-a3704eee64bf",
       "name": "Leer Todos Cupones",
       "alwaysOutputData": true,
       "credentials": {
@@ -4047,10 +4050,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        80,
-        1440
+        -256,
+        1504
       ],
-      "id": "22e2f5a5-b66f-43d4-a3ce-b129c3d48423",
+      "id": "6d96248c-0668-4fdf-a3d7-e4764694beb7",
       "name": "Actualizar Sesión Ver Carrito2",
       "alwaysOutputData": true,
       "credentials": {
@@ -4080,7 +4083,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "telegram_id": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "telegram_id": "={{ ($('Telegram Trigger').item.json.message?.from?.id || $('Telegram Trigger').item.json.callback_query?.from?.id) }}",
             "pantalla_actual": "carrito",
             "producto_seleccionado": "="
           },
@@ -4163,10 +4166,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -144,
-        1008
+        -480,
+        1072
       ],
-      "id": "ede53ca0-0641-4db1-9332-ce1f47d9e39a",
+      "id": "ba01f25c-945e-4829-b808-120ff074058d",
       "name": "Actualizar Sesión Ver Carrito",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -4279,10 +4282,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        352,
-        1008
+        16,
+        1072
       ],
-      "id": "63ff50d8-647a-4439-9424-8d892ea94dbc",
+      "id": "3f882759-c934-4c57-8056-4e29c48d30fd",
       "name": "Actualizar Sesión Producto1",
       "alwaysOutputData": true,
       "credentials": {
