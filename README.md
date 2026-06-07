@@ -61,6 +61,7 @@ Proyecto_DeliveryBot_MantillaDiego/
 ├── setting.json                 ← Workflow exportado de n8n (97 nodos)
 ├── screenshots/                 ← 20 capturas de evidencia
 └── docs/
+    ├── investigacion.md
     ├── arquitectura.md
     ├── flujos_n8n.md
     ├── casos_de_prueba.md
