@@ -27,6 +27,7 @@ Sistema de pedidos digital para cafeterías institucionales. Convierte Telegram 
 
 | Archivo | Contenido |
 |---|---|
+| [`docs/investigacion.md`](docs/investigacion.md) | Investigacion principal sobre n8n, bases de datos y otras cosas. |
 | [`docs/arquitectura.md`](docs/arquitectura.md) | Diagrama de servicios, modelo de datos y configuración de infraestructura |
 | [`docs/flujos_n8n.md`](docs/flujos_n8n.md) | Documentación técnica de los 4 flujos: nodos, lógica, código y parámetros |
 | [`docs/casos_de_prueba.md`](docs/casos_de_prueba.md) | Escenarios de prueba, pasos de validación y resultados esperados |

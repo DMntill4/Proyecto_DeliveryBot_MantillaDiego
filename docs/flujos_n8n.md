@@ -1,9 +1,5 @@
 # Flujos n8n — DeliveryBot
 
-**Total:** 4 flujos / 97 nodos
-
----
-
 ## Flujo 1 — Menú y Carrito (Wizard)
 
 **Trigger:** Cualquier mensaje de Telegram al bot.
