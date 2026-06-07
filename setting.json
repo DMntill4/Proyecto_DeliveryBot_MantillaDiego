@@ -3408,7 +3408,7 @@
               "leftValue": "={{ $('Procesar Confirmación Pedido').item.json.codigoCuponUsado }}",
               "rightValue": "",
               "operator": {
-                "type": "boolean",
+                "type": "string",
                 "operation": "notEmpty",
                 "singleValue": true
               }
