@@ -34,6 +34,7 @@ Registro visual de capturas, demo en video y logs del sistema.
 | 18 | `18-confirmacion-flujo.png` | Flujo 2 | Ejecución exitosa del Flujo 2 en n8n (nodos en verde) |
 | 19 | `19-admin-flujo.png` | Flujo 3 | Canvas del Flujo 3 — Gestión de estados (admin) |
 | 20 | `20-reporte-diario.png` | Flujo 4 | Reporte diario generado y enviado al admin |
+| 20 | `21-flujo-completo.png` | Flujo Total | Vista general de la arquitectura en N8N |
 
 ---
 
