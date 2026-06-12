@@ -32,7 +32,7 @@ Sistema de pedidos digital para cafeterías institucionales. Convierte Telegram 
 | [`docs/flujos_n8n.md`](docs/flujos_n8n.md) | Documentación técnica de los 4 flujos: nodos, lógica, código y parámetros |
 | [`docs/casos_de_prueba.md`](docs/casos_de_prueba.md) | Escenarios de prueba, pasos de validación y resultados esperados |
 | [`docs/evidencias.md`](docs/evidencias.md) | Registro de capturas de pantalla y resultados de ejecución |
-
+| [`docs/Update_Examen_2.md`](docs/Update_Examen_2.md) Examen |
 ---
 
 ## Tecnologías Utilizadas
