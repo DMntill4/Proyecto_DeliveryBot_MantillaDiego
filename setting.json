@@ -869,7 +869,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -112,
+        -96,
         2112
       ],
       "id": "36a1000b-6f67-417b-932b-d679dedbfd05",
@@ -1016,7 +1016,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst chatId = (trigger.message?.chat?.id || trigger.callback_query?.message?.chat?.id)?.toString() || \"\";\nconst telegramId = (trigger.message?.from?.id || trigger.callback_query?.from?.id)?.toString() || \"\";\nconst texto = (trigger.callback_query?.data || trigger.message?.text || '').trim();\nconst numero = parseInt(texto);\n\nconst todasLasSesiones = $('Leer Sesión Usuario').all();\nconst session = todasLasSesiones.find(s => String(s.json.telegram_id) === telegramId)?.json;\n\nif (!session) {\n    return [{ json: { accion: \"error\", chatId, mensaje: \"No se encontró tu sesión.\" } }];\n}\n\nconst catalogo = $('Leer Menú Completo Producto').all(); \n\nlet productos = [];\ntry {\n    const raw = session.productos || session.producto_seleccionado;\n    productos = typeof raw === 'string' ? JSON.parse(raw) : raw;\n} catch(e) { productos = []; }\n\nif (numero === 0) {\n    return [{ json: { accion: \"volver\", chatId, mensaje: \"💠 *MENÚ PRINCIPAL*...\" } }];\n}\n\nif (isNaN(numero) || numero < 1 || numero > productos.length) {\n    return [{ json: { accion: \"error\", chatId, mensaje: `⚠️ Opción no válida.` } }];\n}\n\nconst p = productos[numero - 1];\n\nconst productoReal = catalogo.find(item => item.json.id === p.id || item.json.nombre === p.nombre);\nconst stockDisponible = productoReal ? (productoReal.json.stock || 0) : 0;\n\nconst precioBase = Number(p.precio) || 0;\nconst ivaUnitario = Math.round(precioBase * 0.19);\nconst precioTotalUnitario = precioBase + ivaUnitario;\n\nconst formatoCOP = (precio) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(Number(precio) || 0);\n\nreturn [{\n  json: {\n    accion: \"pedir_cantidad\",\n    chatId: chatId,\n    pantalla_actual: session.pantalla_actual,\n    productoElegido: JSON.stringify({ ...p, stock: stockDisponible }),\n    mensaje: `💠 *CONFIRMACIÓN DE PEDIDO*\\n` +\n             `━━━━━━━━━━━━━━━━━━━━━\\n` +\n             `📍 Producto: *${(p.nombre || \"Producto\").toUpperCase()}*\\n` +\n             `💸 Precio base: ${formatoCOP(precioBase)}\\n` +\n             `📊 IVA (19%): ${formatoCOP(ivaUnitario)}\\n` +\n             `💰 *Total unitario: ${formatoCOP(precioTotalUnitario)}*\\n` +\n             `📦 Stock disponible: ${stockDisponible}\\n` + \n             `━━━━━━━━━━━━━━━━━━━━━\\n\\n` +\n             `👉 *De querer salir, por favor utilice /start*\\n` +\n             `👉 *¿Cuántas unidades deseas llevar?*`\n  }\n}];"
+        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst chatId = (trigger.message?.chat?.id || trigger.callback_query?.message?.chat?.id)?.toString() || \"\";\nconst telegramId = (trigger.message?.from?.id || trigger.callback_query?.from?.id)?.toString() || \"\";\nconst texto = (trigger.callback_query?.data || trigger.message?.text || '').trim();\nconst numero = parseInt(texto);\n\nconst todasLasSesiones = $('Leer Sesión Usuario').all();\nconst session = todasLasSesiones.find(s => String(s.json.telegram_id) === telegramId)?.json;\n\nif (!session) {\n    return [{ json: { accion: \"error\", chatId, mensaje: \"No se encontró tu sesión.\" } }];\n}\n\nconst catalogo = $('Leer Menú Completo Producto').all(); \n\nlet productos = [];\ntry {\n    const raw = session.productos || session.producto_seleccionado;\n    productos = typeof raw === 'string' ? JSON.parse(raw) : raw;\n} catch(e) { productos = []; }\n\nif (numero === 0) {\n    return [{ json: { accion: \"volver\", chatId, mensaje: \"💠 *MENÚ PRINCIPAL*...\" } }];\n}\n\nif (isNaN(numero) || numero < 1 || numero > productos.length) {\n    return [{ json: { accion: \"error\", chatId, mensaje: `⚠️ Opción no válida.` } }];\n}\n\nconst p = productos[numero - 1];\n\n\nconst productoReal = catalogo.find(item => item.json.id === p.id || item.json.nombre === p.nombre);\nconst stockDisponible = productoReal ? (productoReal.json.stock || 0) : 0;\n\nconst precioBase = Number(p.precio) || 0;\nconst ivaUnitario = Math.round(precioBase * 0.19);\nconst precioTotalUnitario = precioBase + ivaUnitario;\n\nconst formatoCOP = (precio) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(Number(precio) || 0);\n\nreturn [{\n  json: {\n    accion: \"pedir_cantidad\",\n    chatId: chatId,\n    pantalla_actual: session.pantalla_actual,\n    productoElegido: JSON.stringify({ ...p, stock: stockDisponible }),\n    mensaje: `💠 *CONFIRMACIÓN DE PEDIDO*\\n` +\n             `━━━━━━━━━━━━━━━━━━━━━\\n` +\n             `📍 Producto: *${(p.nombre || \"Producto\").toUpperCase()}*\\n` +\n             `💸 Precio base: ${formatoCOP(precioBase)}\\n` +\n             `📊 IVA (19%): ${formatoCOP(ivaUnitario)}\\n` +\n             `💰 *Total unitario: ${formatoCOP(precioTotalUnitario)}*\\n` +\n             `📦 Stock disponible: ${stockDisponible}\\n` + \n             `━━━━━━━━━━━━━━━━━━━━━\\n\\n` +\n             `👉 *De querer salir, por favor utilice /start*\\n` +\n             `👉 *¿Cuántas unidades deseas llevar?*`\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2123,8 +2123,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -608,
-        1792
+        -544,
+        1808
       ],
       "id": "4bb5aa16-4f45-4e16-b99f-29eb3dc073ed",
       "name": "Leer Sesión para Carrito",
@@ -2160,8 +2160,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -288,
-        1792
+        -96,
+        1760
       ],
       "id": "508396d1-c7fc-4c75-805a-5c1fbba55837",
       "name": "Leer Menú Completo Stock",
@@ -2174,13 +2174,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst chatId = (trigger.message?.chat?.id || trigger.callback_query?.message?.chat?.id)?.toString() || \"\";\n\nconst sessionData = $('Leer Sesión para Carrito').item.json;\nconst menuItems = $('Leer Menú Completo Stock').all();\n\nlet carrito = [];\ntry {\n  carrito = typeof sessionData.carrito_temporal === 'string' \n    ? JSON.parse(sessionData.carrito_temporal || \"[]\") \n    : (sessionData.carrito_temporal || []);\n} catch(e) { carrito = []; }\n\nif (!carrito || carrito.length === 0) {\n  return [{\n    json: {\n      stockOk: false, chatId,\n      mensajeError: \"🛒 Tu carrito está vacío.\\n\\nElige una categoría para comenzar:\\n*1️⃣.* Bebidas\\n*2️⃣.* Comida\\n*3️⃣.* Aperitivos\\n*4️⃣.* Postres\"\n    }\n  }];\n}\n\nconst problemas = [];\nfor (const item of carrito) {\n  const productoMenu = menuItems.find(m => String(m.json.id_producto) === String(item.id));\n\n  if (!productoMenu) {\n    problemas.push({\n      motivo: `El producto *${item.nombre || item.id}* ya no está disponible en el menú.`\n    });\n    continue;\n  }\n\n  const stockDisponible = Number(productoMenu.json.stock);\n  const cantidadSolicitada = Number(item.qty);\n\n  if (stockDisponible < cantidadSolicitada) {\n    problemas.push({\n      motivo: `*${productoMenu.json.nombre}*: solicitaste ${cantidadSolicitada} unidad(es) pero solo hay ${stockDisponible} disponible(s).`\n    });\n  }\n}\n\nif (problemas.length > 0) {\n  const detalleProblemas = problemas.map(p => `  • ${p.motivo}`).join(\"\\n\");\n  return [{\n    json: {\n      stockOk: false, chatId,\n      mensajeError: `😔 *No podemos procesar tu pedido*\\n\\nProductos con problema:\\n\\n${detalleProblemas}\\n\\nActualiza tu carrito y vuelve a intentarlo.`\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    stockOk: true,\n    carrito,\n    menuItems: menuItems.map(m => m.json),\n    chatId\n  }\n}];"
+        "jsCode": "const trigger = $('Telegram Trigger').item.json;\nconst chatId = (trigger.message?.chat?.id || trigger.callback_query?.message?.chat?.id)?.toString() || \"\";\nconst sessionData = $('Leer Sesión para Carrito').item.json;\nconst menuItems = $('Leer Menú Completo Stock').all();\n\nlet carrito = [];\ntry {\n  carrito = typeof sessionData.carrito_temporal === 'string' \n    ? JSON.parse(sessionData.carrito_temporal || \"[]\") \n    : (sessionData.carrito_temporal || []);\n} catch(e) { carrito = []; }\n\nif (!carrito || carrito.length === 0) {\n  return [{\n    json: {\n      stockOk: false, chatId,\n      mensajeError: \"🛒 Tu carrito está vacío.\\n\\nElige una categoría para comenzar:\\n*1️⃣.* Bebidas\\n*2️⃣.* Comida\\n*3️⃣.* Aperitivos\\n*4️⃣.* Postres\"\n    }\n  }];\n}\n\nconst problemas = [];\nfor (const item of carrito) {\n  const productoMenu = menuItems.find(m => String(m.json.id_producto) === String(item.id));\n\n  if (!productoMenu) {\n    problemas.push({\n      motivo: `El producto *${item.nombre || item.id}* ya no está disponible en el menú.`\n    });\n    continue;\n  }\n\n  const stockDisponible = Number(productoMenu.json.stock);\n  const cantidadSolicitada = Number(item.qty);\n\n  if (stockDisponible < cantidadSolicitada) {\n    problemas.push({\n      motivo: `*${productoMenu.json.nombre}*: solicitaste ${cantidadSolicitada} unidad(es) pero solo hay ${stockDisponible} disponible(s).`\n    });\n  }\n}\n\nif (problemas.length > 0) {\n  const detalleProblemas = problemas.map(p => `  • ${p.motivo}`).join(\"\\n\");\n  return [{\n    json: {\n      stockOk: false, chatId,\n      mensajeError: `😔 *No podemos procesar tu pedido*\\n\\nProductos con problema:\\n\\n${detalleProblemas}\\n\\nActualiza tu carrito y vuelve a intentarlo.`\n    }\n  }];\n}\n\nconst carritoConStock = carrito.map(item => {\n  const productoMenu = menuItems.find(m => String(m.json.id_producto) === String(item.id));\n  return {\n    ...item,\n    stock_actual: productoMenu ? Number(productoMenu.json.stock) : 0\n  };\n});\n\nreturn [{\n  json: {\n    stockOk: true,\n    carrito: carritoConStock,\n    chatId\n  }\n}];\n\nreturn [{\n  json: {\n    stockOk: true,\n    carrito,\n    menuItems: menuItems.map(m => m.json),\n    chatId\n  }\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        560,
-        1792
+        752,
+        1760
       ],
       "id": "88eb37b7-0079-41d4-b651-450efda03d57",
       "name": "Validar Stock Carrito"
@@ -2213,8 +2213,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        784,
-        1792
+        976,
+        1760
       ],
       "id": "b1ef2153-32f6-4ef2-9798-3fefe38f9161",
       "name": "IF Stock Suficiente"
@@ -2228,8 +2228,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1040,
-        1904
+        1232,
+        1872
       ],
       "id": "c1cdcf26-4db7-47c7-881f-3c997750218d",
       "name": "Msg Error Stock Carrito",
@@ -2248,8 +2248,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1040,
-        1696
+        1232,
+        1664
       ],
       "id": "112adace-2f49-47a8-a366-045ed0fc1fdc",
       "name": "Procesar Confirmación Pedido"
@@ -2261,8 +2261,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2480,
-        1696
+        2720,
+        1664
       ],
       "id": "6d0f0a48-558b-43a5-be3d-4038ec0599e5",
       "name": "Distribuir Items Pedido",
@@ -2289,7 +2289,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "id_producto": "={{ $json.id_producto }}",
-            "stock": "={{ Number($('Leer Menú Completo Stock').all()[0].json.stock) - $json.qty_vendida }}"
+            "stock": "={{ Number($('Validar Stock Carrito').item.json.carrito[0].stock_actual) - $json.qty_vendida }}"
           },
           "matchingColumns": [
             "id_producto"
@@ -2370,8 +2370,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2688,
-        1696
+        2944,
+        1664
       ],
       "id": "616cf65b-9887-444c-826d-fa00dedb4d0e",
       "name": "Descontar Stock Vendido",
@@ -2489,8 +2489,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2880,
-        1696
+        3200,
+        1664
       ],
       "id": "0ab562fc-dd20-427c-a8fc-40f7505da353",
       "name": "Limpiar Sesión Tras Pedido",
@@ -2510,8 +2510,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3280,
-        1696
+        3936,
+        1808
       ],
       "id": "1f0c03ee-9c8d-44e6-b2a8-190c77985585",
       "name": "Msg Pedido Confirmado Usuario",
@@ -2532,8 +2532,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3472,
-        1696
+        4128,
+        1808
       ],
       "id": "733b64b9-d514-4488-9697-a226ae94443f",
       "name": "Msg Nuevo Pedido Cocina",
@@ -2661,8 +2661,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1232,
-        1696
+        1424,
+        1664
       ],
       "id": "a3550539-7d76-4a75-881e-1deee5beff64",
       "name": "Guardar Pedido en PEDIDOS",
@@ -3291,8 +3291,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        3072,
-        1696
+        3744,
+        1808
       ],
       "id": "b535a75b-f56e-4825-9e8a-e13a1a9c836b",
       "name": "Limit Envío Pedido"
@@ -3381,8 +3381,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1440,
-        1696
+        1632,
+        1664
       ],
       "id": "75ae372a-0467-4065-b6f9-63cdedabe2f1",
       "name": "Actualizar Puntos Usuario",
@@ -3421,8 +3421,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1648,
-        1696
+        1840,
+        1664
       ],
       "id": "3a825db7-596f-45e2-a0e7-983dce86a417",
       "name": "IF Tiene Cupón Activo"
@@ -3540,8 +3540,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1840,
-        1568
+        2032,
+        1536
       ],
       "id": "fe386d07-a2da-4135-93d6-81af2e552912",
       "name": "Marcar Cupón Usado",
@@ -3580,8 +3580,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2000,
-        1792
+        2192,
+        1760
       ],
       "id": "79041c0a-3633-4872-b4e9-b06739022921",
       "name": "IF Genera Cupón Nuevo"
@@ -3689,8 +3689,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2192,
-        1568
+        2384,
+        1536
       ],
       "id": "2471015d-1831-4cde-a6f2-cb2cb44faf9a",
       "name": "Guardar Cupón Nuevo",
@@ -3722,8 +3722,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        0,
-        1792
+        192,
+        1760
       ],
       "id": "1769d8fd-9ec3-4158-b98a-17866e8eb504",
       "name": "Leer Usuarios para Pedido",
@@ -3756,8 +3756,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        336,
-        1792
+        528,
+        1760
       ],
       "id": "f1ea66bd-2e49-4726-8d32-ae3676d6883d",
       "name": "Leer Cupones para Pedido",
@@ -3776,8 +3776,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -432,
-        1952
+        -240,
+        1920
       ],
       "id": "6eed1f05-6f67-43d1-a1ea-0ef0216af9c4",
       "name": "Wait Sesión 1",
@@ -3790,8 +3790,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -144,
-        1952
+        48,
+        1920
       ],
       "id": "dbcf013a-c9e7-47e9-a1e2-65e5c07ab5fa",
       "name": "Wait Sesión 2",
@@ -3804,8 +3804,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        160,
-        1952
+        352,
+        1920
       ],
       "id": "129a32f6-43d0-4f0a-af2a-adea0fc59214",
       "name": "Wait Sesión 3",
@@ -4287,6 +4287,344 @@
       ],
       "id": "3f882759-c934-4c57-8056-4e29c48d30fd",
       "name": "Actualizar Sesión Producto1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "c62ihsHEYu6VTYhM",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
+        "text": "={{ $('Distribuir Items Pedido').item.json.mensajeUsuario }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4512,
+        1600
+      ],
+      "id": "2004aba4-5cfe-46fd-ad8b-2f94d7078f61",
+      "name": "Msg Pedido Confirmado Usuario2",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=-5140257658",
+        "text": "={{ $('Distribuir Items Pedido').item.json.mensajeCocina }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4704,
+        1600
+      ],
+      "id": "1e1777b9-58a0-4a83-ad37-4484ca681328",
+      "name": "Msg Nuevo Pedido Cocina1",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        4336,
+        1600
+      ],
+      "id": "61b204e3-f09e-4c01-840a-73e19b222dff",
+      "name": "Limit Envío Pedido1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b4a1faee-4c0e-4fe6-b8ee-ec4794c6f22a",
+              "leftValue": "={{ Number($('Descontar Stock Vendido').all()[0].json.stock) <= 3 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3424,
+        1664
+      ],
+      "id": "16c2bc58-54e7-494f-be3f-933ae829d35d",
+      "name": "If Validar Stock Agotado"
+    },
+    {
+      "parameters": {
+        "chatId": "=-5136655579",
+        "text": "=⚠️ ALERTA DE STOCK: \n\nEl producto {{ $('Descontar Stock Vendido').item.json.id_producto }} solo tiene {{ $('Descontar Stock Vendido').item.json.stock }} unidades. Favor reabastecer.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4144,
+        1600
+      ],
+      "id": "bab1c474-6410-471f-b610-1b11d29559d6",
+      "name": "Msg Stock Por Debajo De 3",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ ($('Telegram Trigger').item.json.message?.chat?.id || $('Telegram Trigger').item.json.callback_query?.message?.chat?.id) }}",
+        "text": "={{ $('Distribuir Items Pedido').item.json.mensajeUsuario }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4688,
+        1376
+      ],
+      "id": "539395e5-30c3-4b51-87d2-ec18698ab380",
+      "name": "Msg Pedido Confirmado Usuario3",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=-5140257658",
+        "text": "={{ $('Distribuir Items Pedido').item.json.mensajeCocina }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4880,
+        1376
+      ],
+      "id": "b82ec4dc-938c-4c42-9f19-f3d571888324",
+      "name": "Msg Nuevo Pedido Cocina2",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        4512,
+        1376
+      ],
+      "id": "cc73429c-97bb-4ee3-b889-c1f200f35f07",
+      "name": "Limit Envío Pedido2"
+    },
+    {
+      "parameters": {
+        "chatId": "=-5136655579",
+        "text": "=⚠️ ALERTA DE STOCK: \n\nEl producto {{ $('Descontar Stock Vendido').item.json.id_producto }} se ha agotado con  {{ $('Descontar Stock Vendido').item.json.stock }} unidades. Favor reabastecer lo antes posible.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4320,
+        1376
+      ],
+      "id": "57105c30-3b17-4634-8b9d-a314c5813d8a",
+      "name": "Msg Stock Agotado",
+      "webhookId": "89882209-838a-4673-93b9-a6db2d83e5e5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rCtTO02mOnnBCKB5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "86f62965-e724-41de-a8cc-16d170d55bb5",
+              "leftValue": "={{ Number($('Descontar Stock Vendido').all()[0].json.stock) == 0 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3696,
+        1536
+      ],
+      "id": "1a777bd1-0616-424b-bd88-3cc268f3633e",
+      "name": "If Producto 0"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1u0Ur8gZeVgCLPy3YyscuHvKrzwtfaKfhXP0vQ7MT51w",
+          "mode": "list",
+          "cachedResultName": "DeliveryBot_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u0Ur8gZeVgCLPy3YyscuHvKrzwtfaKfhXP0vQ7MT51w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "MENU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u0Ur8gZeVgCLPy3YyscuHvKrzwtfaKfhXP0vQ7MT51w/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_producto": "=",
+            "nombre": "={{ $('Distribuir Items Pedido').item.json.nombre_producto + '(Agotado)'}}"
+          },
+          "matchingColumns": [
+            "nombre"
+          ],
+          "schema": [
+            {
+              "id": "id_producto",
+              "displayName": "id_producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio",
+              "displayName": "precio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "categorias",
+              "displayName": "categorias",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stock",
+              "displayName": "stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4128,
+        1376
+      ],
+      "id": "b9983038-e818-4c03-86a2-675eec6918a0",
+      "name": "Actualizar Prefijo Agotado",
       "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -4857,7 +5195,7 @@
       "main": [
         [
           {
-            "node": "Limit Envío Pedido",
+            "node": "If Validar Stock Agotado",
             "type": "main",
             "index": 0
           }
@@ -5275,10 +5613,124 @@
           }
         ]
       ]
+    },
+    "Msg Pedido Confirmado Usuario2": {
+      "main": [
+        [
+          {
+            "node": "Msg Nuevo Pedido Cocina1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit Envío Pedido1": {
+      "main": [
+        [
+          {
+            "node": "Msg Pedido Confirmado Usuario2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Validar Stock Agotado": {
+      "main": [
+        [
+          {
+            "node": "If Producto 0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Limit Envío Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Msg Stock Por Debajo De 3": {
+      "main": [
+        [
+          {
+            "node": "Limit Envío Pedido1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Msg Pedido Confirmado Usuario3": {
+      "main": [
+        [
+          {
+            "node": "Msg Nuevo Pedido Cocina2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit Envío Pedido2": {
+      "main": [
+        [
+          {
+            "node": "Msg Pedido Confirmado Usuario3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Msg Stock Agotado": {
+      "main": [
+        [
+          {
+            "node": "Limit Envío Pedido2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Producto 0": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Prefijo Agotado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Msg Stock Por Debajo De 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar Prefijo Agotado": {
+      "main": [
+        [
+          {
+            "node": "Msg Stock Agotado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "pinData": {},
   "meta": {
+    "templateCredsSetupCompleted": true,
     "instanceId": "d0eee7c449544ab66f5f018fe7ed62f67bdc30927f9317fb68db8b6be5dac266"
   }
 }
